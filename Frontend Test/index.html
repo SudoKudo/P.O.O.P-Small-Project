@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Add User</title>
+      <link rel='stylesheet' type='text/css' href='css/style.css'/>
+      <script type='text/javascript' src='js/code.js'></script>
+	</head>
+	<body>
+    <div class="grid-container">
+      <div class="top"></div>
+      <div class="left"></div>
+      <div class="middle">
+        <form>
+          <!-- These are the form fields for the sign-in page -->
+          <div class="sign-in">Username: <input type="text"  id="userName"></div>
+          <div class="sign-in">Password: <input type="password" id="passWord"></div>
+          <!-- These form fields are used for contact info to- and from the database -->
+          <div class="contactInfo">First Name: <input type="text" id="fName"></div>
+          <div class="contactInfo">Last Name: <input type="text" id="lName"></div>
+          <div class="contactInfo">Address 1: <input type="text" id="addr1"></div>
+          <div class="contactInfo">Address 2: <input type="text" id="addr2"></div>
+          <div class="contactInfo">City: <input type="text" id="city"></div>
+          <div class="contactInfo">State: <input type="text" id="state"></div>
+          <div class="contactInfo">Zip: <input type="text" id="zip"></div>
+          <div class="contactInfo">Phone: <input type="text" id="phone"></div>
+          <div class="contactInfo">Email: <input type="text" id="email"></div>
+          <!-- Form fields for the search page -->
+          <div class="searchField">Name: <input type="text" id="searchName"></div>
+          <!-- the drop-down menu for search results -->
+          <div class="searchField">
+            Results: <select type="text" id="nameList">
+                       <option value="bananas">Bananas</option>
+                       <option value="morebananas">More Bananas</option>
+                     </select></div>
+          <div>
+          <!-- All them buttons -->
+          <button type="button" id="viewButton" class="buttons" onclick='doView()'>View</button>
+          <button type="button" id="loginButton" class="buttons" onclick='doLogin()'>Login</button>
+          <button type="button" id="registerButton" class="buttons" onclick='doRegister()'>Register</button>
+          <button type="button" id="addButton" class="buttons" onclick='doAdd()'>Add</button>
+          <button type="button" id="addUserButton" class="buttons" onclick='doAddUser()'>Add User</button>
+          <button type="button" id="searchButton" class="buttons" onclick='doSearch()'>Search</button>
+          <button type="button" id="homeButton" class="buttons" onclick='doHome()'>Home</button>
+          <button type="button" id="logoutButton" class="buttons" onclick='doLogout()'>Logout</button>
+        </div>
+        </form>
+      </div>
+      <div class="right"></div>
+      <div class="bottom"></div>
+    </div>
+	</body>
+</html>

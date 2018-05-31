@@ -1,0 +1,95 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #2196F3;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-areas:
+    "top top top"
+    "left middle right"
+    "bottom bottom bottom";
+  background-color: #2196F3;
+  grid-template-rows: 70px 1fr 70px;
+  grid-template-columns: 1fr 600px 1fr;
+}
+
+.top,
+.left,
+.middle,
+.right,
+.bottom {
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.top{
+  grid-area: top;
+}
+
+.left {
+  grid-area: left;
+}
+
+.middle{
+  grid-area: middle;
+  background-color: #f1f1f1;
+  text-align: left;
+  width: 600px;
+}
+
+.right{
+  grid-area: right;
+}
+
+.bottom{
+  grid-area: bottom;
+}
+
+.buttons{
+  font-size: 15px;
+  width: 100px;
+  visibility: hidden;
+  display: none;
+}
+
+.contactInfo{
+  padding-top: 10px;
+  visibility: hidden;
+  display: none;
+}
+
+.sign-in{
+  padding-top: 10px;
+}
+
+.searchField{
+  visibility: hidden;
+  display: none;
+}
+
+#loginButton{
+  visibility: visible;
+  display: block;
+}
+
+#registerButton{
+  visibility: visible;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .grid-container  {
+    grid-template-areas:
+    "top top top"
+    "left left left"
+    "middle middle middle"
+    "right right right"
+    "bottom bottom bottom";
+    grid-template-rows: 70px 10px 1fr 10px 70px;
+    grid-template-columns: 1fr;
+}

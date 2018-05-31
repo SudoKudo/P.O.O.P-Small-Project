@@ -23,7 +23,7 @@ body{
 .right,
 .bottom {
   padding: 10px;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -53,32 +53,29 @@ body{
 .buttons{
   font-size: 15px;
   width: 100px;
-  visibility: hidden;
   display: none;
 }
 
 .contactInfo{
-  padding-top: 10px;
-  visibility: hidden;
   display: none;
 }
 
 .sign-in{
-  padding-top: 10px;
 }
 
 .searchField{
-  visibility: hidden;
+  display: none;
+}
+
+.register{
   display: none;
 }
 
 #loginButton{
-  visibility: visible;
   display: block;
 }
 
 #registerButton{
-  visibility: visible;
   display: block;
 }
 

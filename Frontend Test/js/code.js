@@ -41,6 +41,7 @@ function doShow(pageName){
   }
   else if(pageName == "Login"){
     hideOrShow("buttons", false, true);
+    hideOrShow("sign-in", true, true);
     hideOrShow("loginButton", true, false);
     hideOrShow("registerButton", true, false);
   }

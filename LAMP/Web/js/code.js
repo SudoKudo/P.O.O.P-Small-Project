@@ -1,5 +1,5 @@
 
-var urlBase = 'http://COP4331-3.com/LAMPAPI';
+var urlBase = 'm4rks.site/LAMPAPI';
 var extension = "php";
 
 var userId = 0;
@@ -8,16 +8,14 @@ var lastName = "";
 
 function doRegister()
 {
- var firstName = document.getElementById("firstName").value; // Retrieve first name
- var lastName = document.getElementById("lastName").value; // Retrieve last name
- var uName = document.getElementById("uName").value; // Retrieve username
- var pWord = document.getElementById("pWord").value; // Retrieve password
- var eMail = document.getElementById("eMail").value; // Retrieve email
+
+	var uName = document.getElementById("userName").value; // Retrieve username
+	var pWord = document.getElementById("passWord").value; // Retrieve password
 
 	var hashpass = sha1(pWord); // Encrypt the password
 
 	// Convert to json string to pass to API
-	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '","uName" : "' + uName + '","pWord" : "' + pWord + '","eMail" : "' + eMail + '", "userId" : ' + userId + '}';
+	var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + pWord + '", "userId" : ' + userId + '}';
 	var url = urlBase + '/AddColor.' + extension; // Call API code
 
 	var xhr = new XMLHttpRequest();

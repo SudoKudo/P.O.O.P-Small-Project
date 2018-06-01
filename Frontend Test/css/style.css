@@ -3,7 +3,11 @@
 }
 
 body{
-  background-color: #2196F3;
+  background-color: #a0c4ff;
+}
+
+h1{
+  text-align: center;
 }
 
 .grid-container{
@@ -12,31 +16,35 @@ body{
     "top top top"
     "left middle right"
     "bottom bottom bottom";
-  background-color: #2196F3;
-  grid-template-rows: 70px 1fr 70px;
+  grid-template-rows: 20px 1fr 1fr;
   grid-template-columns: 1fr 600px 1fr;
 }
 
-.form-grid-container{
-  display: grid;
-  grid-template-columns: "label field";
-}
-
 .sign-in,
+.register,
 .contactInfo,
 .searchField{
   display: grid;
-  grid-template-columns: "label field";
+  grid-template-areas: "fieldLabel text";
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 30px;
+  padding: 5px;
 }
 
-.label{
-  grid-area: label;
-  display: inherit;
+input,
+select{
+  border: 0px solid;
+  border-radius: 15px;
+  padding-left: 10px;
 }
 
-input{
-  grid-area: field;
-  display: inherit;
+.text{
+  grid-area: text;
+}
+
+.fieldLabel{
+  grid-area: fieldLabel;
+  padding-left: 5px;
 }
 
 .top,
@@ -62,6 +70,8 @@ input{
   background-color: #f1f1f1;
   text-align: left;
   width: 600px;
+  border: 0px solid;
+  border-radius: 15px;
 }
 
 .right{
@@ -82,6 +92,10 @@ input{
   display: none;
 }
 
+.register{
+  display: none;
+}
+
 .sign-in{
 }
 
@@ -94,11 +108,22 @@ input{
 }
 
 #loginButton{
-  display: block;
+  display: inline-block;
 }
 
 #registerButton{
-  display: block;
+  display: inline-block;
+}
+
+#buttonContainer{
+  width: 100%
+}
+
+.easteregg{
+}
+
+#secretButton{
+  font-size: 8px;
 }
 
 @media (max-width: 600px) {

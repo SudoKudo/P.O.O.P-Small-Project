@@ -1,10 +1,7 @@
-
-var urlBase = 'm4rks.site/LAMPAPI';
+var urlBase = 'http://m4arks.site/m4rks.site/LAMPAPI';
 var extension = "php";
 
 var userId = 0;
-var firstName = "";
-var lastName = "";
 
 function doRegister()
 {
@@ -15,9 +12,11 @@ function doRegister()
 	var hashpass = sha1(pWord); // Encrypt the password
 
 	// Convert to json string to pass to API
-	var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + pWord + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension; // Call API code
+	var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : ' + userId + '}';
+	var url = urlBase + '/Register.' + extension; // Call API code
 
+	console.log(url);
+        
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -36,6 +35,7 @@ function doRegister()
 	{
 		document.getElementById("colorAddResult").innerHTML = err.message;
 	}
+	
 
 }
 // Login function in the main screen

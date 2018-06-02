@@ -1,4 +1,4 @@
-var urlBase = 'http://m4arks.site/m4rks.site/LAMPAPI';
+var urlBase = 'http://m4rks.site/LAMPAPI';
 var extension = "php";
 
 var userId = 0;

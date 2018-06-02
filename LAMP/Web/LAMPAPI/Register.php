@@ -1,3 +1,6 @@
+Access-Control-Allow-Origin: http://m4rks.site
+Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
+Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token
 <?php
 	$inData = getRequestInfo();
 	

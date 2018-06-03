@@ -1,6 +1,3 @@
-Access-Control-Allow-Origin: http://m4rks.site
-Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS
-Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token
 <?php
 	$inData = getRequestInfo();
 	
@@ -8,14 +5,18 @@ Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token
 	$password = $inData["pWord"];
 
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
+	
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$sql = "insert into UserInfo (UserName,Password) VALUES (" . $userName . ",'" . $password . "')";
-		if( $result = $conn->query($sql) != TRUE )
+		$sql = "INSERT INTO UserInfo (UserName,Password) VALUES ('" . $userName . "','" . $password . "')";
+        $conn->query($sql);
+        $result = $conn->query($sql);
+               
+		if( $result != TRUE )
 		{
 			returnWithError( $conn->error );
 		}
@@ -32,8 +33,8 @@ Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token
 
 	function sendResultInfoAsJson( $obj )
 	{
-		header('Content-type: application/json');
-		echo $obj;
+		header('Content-Type: application/json');
+                echo json_encode($obj);
 	}
 	
 	function returnWithError( $err )

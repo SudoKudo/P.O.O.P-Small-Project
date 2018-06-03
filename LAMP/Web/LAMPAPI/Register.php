@@ -13,8 +13,8 @@
 	else
 	{
 		$sql = "INSERT INTO UserInfo (UserName,Password) VALUES ('" . $userName . "','" . $password . "')";
-        $conn->query($sql);
-        $result = $conn->query($sql);
+                $conn->query($sql);
+                $result = $conn->query($sql);
                
 		if( $result != TRUE )
 		{

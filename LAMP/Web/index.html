@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<title>Database Project</title>
+    <title>Database Project</title>
       <link rel='stylesheet' type='text/css' href='css/style.css'/>
       <script type='text/javascript' src='js/code.js'></script>
-	</head>
-	<body>
+  </head>
+  <body>
     <div id="easteregg">
       <button type="button" id="secretButton" onclick='doSecret()'>Do Not Click</button>
     </div>
@@ -81,14 +81,16 @@
         </form>
         <br id="buttonBreak">
         <div id="buttonContainer">
-          <button type="button" id="viewButton" class="buttons" onclick='doView()'>View</button>
-          <button type="button" id="loginButton" class="buttons" onclick='doLogin()'>Login</button>
+        <center>
           <button type="button" id="registerButton" class="buttons" onclick='doRegister()'>Register</button>
+          <button type="button" id="loginButton" class="buttons" onclick='doLogin()'>Login</button>
           <button type="button" id="addButton" class="buttons" onclick='doAdd()'>Add</button>
-          <button type="button" id="addUserButton" class="buttons" onclick='doAddUser()'>Add User</button>
           <button type="button" id="searchButton" class="buttons" onclick='doSearch()'>Search</button>
-          <button type="button" id="homeButton" class="buttons" onclick='doHome()'>Home</button>
+          <button type="button" id="viewButton" class="buttons" onclick='doView()'>View</button>
           <button type="button" id="logoutButton" class="buttons" onclick='doLogout()'>Logout</button>
+          <button type="button" id="addUserButton" class="buttons" onclick='doAddUser()'>Add User</button>
+          <button type="button" id="homeButton" class="buttons" onclick='doHome()'>Home</button>
+        </center>
         </div>
       </div>
       <div class="right"></div>
@@ -96,5 +98,5 @@
         <div id="loginResult"></div>
       </div>
     </div>
-	</body>
+  </body>
 </html>

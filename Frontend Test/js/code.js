@@ -120,5 +120,7 @@ function hideOrShow(element, show=true, list=false){
 
 function doSecret(){
   document.body.style.backgroundImage ="url('images/easteregg.png')";
+  document.getElementById("pageName").style.fontSize = "80px";
+  document.getElementById("pageName").style.textShadow = "2px 2px white";
   document.getElementsByClassName("middle")[0].style.backgroundColor = "pink";
 }

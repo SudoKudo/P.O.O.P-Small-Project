@@ -126,6 +126,17 @@ select{
   font-size: 8px;
 }
 
+#pageName{
+  font-size: 50px;
+}
+
+#addButton,
+#searchButton,
+#logoutButton{
+  font-size: 25px;
+  width: 150px;
+}
+
 @media (max-width: 600px) {
   .grid-container  {
     grid-template-areas:

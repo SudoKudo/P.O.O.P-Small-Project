@@ -83,7 +83,7 @@ select{
 }
 
 .buttons{
-  font-size: 15px;
+  /* font-size: 15px; */
   width: 100px;
   display: none;
 }
@@ -119,11 +119,22 @@ select{
   width: 100%
 }
 
+#pageName{
+  font-size: 50px;
+}
+
 .easteregg{
 }
 
 #secretButton{
   font-size: 8px;
+}
+
+#addButton,
+#searchButton,
+#logoutButton{
+  font-size: 25px;
+  width: 150px;
 }
 
 @media (max-width: 600px) {

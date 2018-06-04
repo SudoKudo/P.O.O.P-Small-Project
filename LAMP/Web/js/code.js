@@ -12,28 +12,28 @@ function doRegister()
 	var hashpass = sha1(pWord); // Encrypt the password
 
 	// Convert to json string to pass to API
-	var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : ' + userId + '}';
+	var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : "' + userId + '"}';
 	var url = urlBase + '/Register.' + extension; // Call API code
 
 	console.log(url);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 	try
 	{
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				//document.getElementById("colorAddResult").innerHTML = "Color has been added";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		//document.getElementById("colorAddResult").innerHTML = err.message;
 	}
 
 
@@ -42,8 +42,6 @@ function doRegister()
 function doLogin()
 {
 	userId = 0;
-	firstName = "";
-	lastName = "";
 
 	var login = document.getElementById("userName").value; // Takes in username from login
 	var password = document.getElementById("passWord").value; // Takes in password
@@ -73,13 +71,15 @@ function doLogin()
 			return;
 		}
 
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
+		login = jsonObject.UserName;
+		password = jsonObject.Password;
 
+		/*
 		document.getElementById("userName").innerHTML = firstName + " " + lastName;
 
 		document.getElementById("loginName").value = "";
 		document.getElementById("loginPassword").value = "";
+		*/
 
 		// Call hideOrShow Function
 		doShow("MainMenu");
@@ -95,15 +95,11 @@ function doLogin()
 function doLogout()
 {
 	userId = 0;
-	firstName = "";
-	lastName = "";
 	userName = "";
 	passWord = "";
 
 	document.getElementById("userName").value = userName;
 	document.getElementById("passWord").value = passWord;
-	document.getElementById("fiName").value = firstName;
-	document.getElementById("laName").value = lastName;
 
 	doShow("Login");
 } // End doLogout function
@@ -167,19 +163,19 @@ function doAdd()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				//document.getElementById("colorAddResult").innerHTML = "Color has been added";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		//document.getElementById("colorAddResult").innerHTML = err.message;
 	}
 
 } // End doAdd function
 
-// Begind doDelete function to delete a contact in the contact manager
+// Begin doDelete function to delete a contact in the contact manager
 function doDelete()
 {
 
@@ -199,7 +195,7 @@ function doSearch()
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 	try
 	{
 		xhr.onreadystatechange = function()

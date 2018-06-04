@@ -51,7 +51,6 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hashpass + '"}';
-	console.log(jsonPayload);
 	var url = urlBase + '/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -63,7 +62,9 @@ function doLogin()
 
 		var jsonObject = JSON.parse( xhr.responseText );
 
-		userId = jsonObject.id;
+		userId = jsonObject.UserID;
+
+		console.log(userId);
 
 		if( userId < 1 )
 		{
@@ -136,7 +137,13 @@ function hideOrShow(element, show=true, list=false){
 } // End hideOrShow function
 
 // Begin doAdd Function to add a contact you the contact manager
+
 function doAdd()
+{
+    doShow("Add");
+}
+
+function doAddUser()
 {
 	var fName = document.getElementById("fName").value; // Retrieve first name
 	var lName = document.getElementById("lName").value; // Retrieve last name
@@ -150,9 +157,10 @@ function doAdd()
 	//document.getElementById("colorAddResult").innerHTML = "";
 
 	// Convert to json string to pass to API
-	var jsonPayload = '{"fName" : "' + fName + '", "lName" : "' + lName + '","addr1" : "' + addrOne + '","addr2" : "' + addrTwo + '","city" : "' + city + '","state" : "' + state + '", "zip" : "' + zip + '","phone" : "' + phone + '","email" : "' + email + '","userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension; // Call API code
+        var jsonPayload = '{"fName" : "' + fName + '","lName" : "' + lName + '","addrOne" : "' + addrOne + '","addrTwo" : "' + addrTwo + '","city" : "' + city + '","state" : "' + state + '","zip" : "' + zip + '","phone" : "' + phone + '","email" : "' + email + '","userId" : "' + userId + '"}';
+        var url = urlBase + '/Add.' + extension; // Call API code
 
+	console.log(jsonPayload);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -172,7 +180,6 @@ function doAdd()
 	{
 		//document.getElementById("colorAddResult").innerHTML = err.message;
 	}
-
 } // End doAdd function
 
 // Begin doDelete function to delete a contact in the contact manager
@@ -185,13 +192,13 @@ function doDelete()
 function doSearch()
 {
 	var srch = document.getElementById("searchName").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+	//document.getElementById("colorSearchResult").innerHTML = "";
 
 	var nameList = document.getElementById("nameList");
-	nameList.innerHTML = "";
+	//nameList.innerHTML = "";
 
 	var jsonPayload = '{"search" : "' + srch + '"}';
-	var url = urlBase + '/SearchColors.' + extension;
+	var url = urlBase + '/Search.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -285,7 +292,7 @@ function doShow(pageName){
     hideOrShow("buttonBreak")
     hideOrShow("loginButton");
     hideOrShow("registerButton");
-    document.getElementById("pageName").innerHTML = "Content Manager";
+    document.getElementById("pageName").innerHTML = "Database Title";
   }
 } // End doShow function
 
@@ -317,7 +324,5 @@ function sha1(msg)
 
 function doSecret(){
   document.body.style.backgroundImage ="url('images/easteregg.png')";
-  document.getElementById("pageName").style.fontSize = "80px";
-  document.getElementById("pageName").style.textShadow = "2px 2px white";
   document.getElementsByClassName("middle")[0].style.backgroundColor = "pink";
 }

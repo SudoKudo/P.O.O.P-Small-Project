@@ -1,29 +1,74 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<title>Pretty Unicorn</title>
+		<title>Database Project</title>
       <link rel='stylesheet' type='text/css' href='css/style.css'/>
       <script type='text/javascript' src='js/code.js'></script>
 	</head>
 	<body>
+    <div id="easteregg">
+      <button type="button" id="secretButton" onclick='doSecret()'>Do Not Click</button>
+    </div>
+    <h1 id="pageName">Database Title</h1>
     <div class="grid-container">
       <div class="top"></div>
       <div class="left"></div>
       <div class="middle">
         <form>
           <!-- These are the form fields for the sign-in page -->
-          <div class="sign-in">Username: <input type="text"  id="userName"></div>
-          <div class="sign-in">Password: <input type="password" id="passWord"></div>
+          <div class="sign-in">
+            <div class="fieldLabel">Username:</div>
+            <input type="text"  id="userName">
+          </div>
+          <div class="sign-in">
+            <div class="fieldLabel">Password:</div>
+            <input type="password" id="passWord">
+          </div>
+          <div class="register">
+            <div class="fieldLabel">First Name:</div>
+            <input type="text" id="fiName">
+          </div>
+          <div class="register">
+            <div class="fieldLabel">Last Name:</div>
+            <input type="text" id="laName">
+          </div>
           <!-- These form fields are used for contact info to- and from the database -->
-          <div class="contactInfo">First Name: <input type="text" id="fName"></div>
-          <div class="contactInfo">Last Name: <input type="text" id="lName"></div>
-          <div class="contactInfo">Address 1: <input type="text" id="addr1"></div>
-          <div class="contactInfo">Address 2: <input type="text" id="addr2"></div>
-          <div class="contactInfo">City: <input type="text" id="city"></div>
-          <div class="contactInfo">State: <input type="text" id="state"></div>
-          <div class="contactInfo">Zip: <input type="text" id="zip"></div>
-          <div class="contactInfo">Phone: <input type="text" id="phone"></div>
-          <div class="contactInfo">Email: <input type="text" id="email"></div>
+          <div class="contactInfo">
+            <div class="fieldLabel">First Name:</div>
+            <input type="text" id="fName">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">Last Name:</div>
+            <input type="text" id="lName">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">Address 1:</div>
+            <input type="text" id="addr1">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">Address 2:</div>
+            <input type="text" id="addr2">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">City:</div>
+            <input type="text" id="city">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">State:</div>
+            <input type="text" id="state">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">Zip:</div>
+            <input type="text" id="zip">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">Phone:</div>
+            <input type="text" id="phone">
+          </div>
+          <div class="contactInfo">
+            <div class="fieldLabel">Email:</div>
+            <input type="text" id="email">
+          </div>
           <!-- Form fields for the search page -->
           <div class="searchField">Name: <input type="text" id="searchName"></div>
           <!-- the drop-down menu for search results -->
@@ -32,8 +77,10 @@
                        <option value="bananas">Bananas</option>
                        <option value="morebananas">More Bananas</option>
                      </select></div>
-          <div>
           <!-- All them buttons -->
+        </form>
+        <br id="buttonBreak">
+        <div id="buttonContainer">
           <button type="button" id="viewButton" class="buttons" onclick='doView()'>View</button>
           <button type="button" id="loginButton" class="buttons" onclick='doLogin()'>Login</button>
           <button type="button" id="registerButton" class="buttons" onclick='doRegister()'>Register</button>
@@ -43,11 +90,11 @@
           <button type="button" id="homeButton" class="buttons" onclick='doHome()'>Home</button>
           <button type="button" id="logoutButton" class="buttons" onclick='doLogout()'>Logout</button>
         </div>
-        </form>
-        <p id="loginResult"></p>
       </div>
       <div class="right"></div>
-      <div class="bottom"></div>
+      <div class="bottom">
+        <div id="loginResult"></div>
+      </div>
     </div>
 	</body>
 </html>

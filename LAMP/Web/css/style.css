@@ -3,7 +3,11 @@
 }
 
 body{
-  background-color: #2196F3;
+  background-color: #a0c4ff;
+}
+
+h1{
+  text-align: center;
 }
 
 .grid-container{
@@ -12,9 +16,35 @@ body{
     "top top top"
     "left middle right"
     "bottom bottom bottom";
-  background-color: #2196F3;
-  grid-template-rows: 70px 1fr 70px;
+  grid-template-rows: 20px 1fr 1fr;
   grid-template-columns: 1fr 600px 1fr;
+}
+
+.sign-in,
+.register,
+.contactInfo,
+.searchField{
+  display: grid;
+  grid-template-areas: "fieldLabel text";
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 30px;
+  padding: 5px;
+}
+
+input,
+select{
+  border: 0px solid;
+  border-radius: 15px;
+  padding-left: 10px;
+}
+
+.text{
+  grid-area: text;
+}
+
+.fieldLabel{
+  grid-area: fieldLabel;
+  padding-left: 5px;
 }
 
 .top,
@@ -23,7 +53,7 @@ body{
 .right,
 .bottom {
   padding: 10px;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -40,6 +70,8 @@ body{
   background-color: #f1f1f1;
   text-align: left;
   width: 600px;
+  border: 0px solid;
+  border-radius: 15px;
 }
 
 .right{
@@ -53,33 +85,45 @@ body{
 .buttons{
   font-size: 15px;
   width: 100px;
-  visibility: hidden;
   display: none;
 }
 
 .contactInfo{
-  padding-top: 10px;
-  visibility: hidden;
+  display: none;
+}
+
+.register{
   display: none;
 }
 
 .sign-in{
-  padding-top: 10px;
 }
 
 .searchField{
-  visibility: hidden;
+  display: none;
+}
+
+.register{
   display: none;
 }
 
 #loginButton{
-  visibility: visible;
-  display: block;
+  display: inline-block;
 }
 
 #registerButton{
-  visibility: visible;
-  display: block;
+  display: inline-block;
+}
+
+#buttonContainer{
+  width: 100%
+}
+
+.easteregg{
+}
+
+#secretButton{
+  font-size: 8px;
 }
 
 @media (max-width: 600px) {

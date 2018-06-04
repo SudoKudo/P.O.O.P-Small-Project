@@ -47,7 +47,7 @@ function doLogin()
 
 	var login = document.getElementById("userName").value; // Takes in username from login
 	var password = document.getElementById("passWord").value; // Takes in password
-	
+
 	var hashpass = sha1(password); // Encrypt the password
 
 	document.getElementById("loginResult").innerHTML = "";
@@ -97,6 +97,13 @@ function doLogout()
 	userId = 0;
 	firstName = "";
 	lastName = "";
+	userName = "";
+	passWord = "";
+
+	document.getElementById("userName").value = userName;
+	document.getElementById("passWord").value = passWord;
+	document.getElementById("fiName").value = firstName;
+	document.getElementById("laName").value = lastName;
 
 	doShow("Login");
 } // End doLogout function
@@ -106,12 +113,10 @@ function doLogout()
 // functions.
 function hideOrShow(element, show=true, list=false){
   // Default is to show the element(s)
-  var vis = "visible";
-	var dis = "block";
+	var dis = "inline";
 
   // To hide the element(s)
   if(!show){
-    var vis = "hidden";
   	var dis = "none";
   }
 
@@ -119,17 +124,20 @@ function hideOrShow(element, show=true, list=false){
   if(list){
     var elementList = document.getElementsByClassName(element)
     for (i = 0; i < elementList.length; i++) {
-        elementList[i].style.visibility = vis;
         elementList[i].style.display = dis;
+        if (show){
+          elementList[i].style.display = "grid";
+        }
     }
   }
 
   // element is identified by ID
   else{
-    document.getElementById(element).style.visibility = vis;
     document.getElementById(element).style.display = dis;
+    if (show){
+      document.getElementById(element).style.display = "inline-grid";
+    }
   }
-  document.getElementById("addButton").style.visibility = "visible";
 } // End hideOrShow function
 
 // Begin doAdd Function to add a contact you the contact manager
@@ -150,7 +158,7 @@ function doAdd()
 	var jsonPayload = '{"fName" : "' + fName + '", "lName" : "' + lName + '","addr1" : "' + addrOne + '","addr2" : "' + addrTwo + '","city" : "' + city + '","state" : "' + state + '", "zip" : "' + zip + '","phone" : "' + phone + '","email" : "' + email + '","userId" : ' + userId + '}';
 	var url = urlBase + '/AddColor.' + extension; // Call API code
 
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -169,7 +177,7 @@ function doAdd()
 	{
 		document.getElementById("colorAddResult").innerHTML = err.message;
 	}
-	
+
 } // End doAdd function
 
 // Begind doDelete function to delete a contact in the contact manager
@@ -223,46 +231,64 @@ function doSearch()
 
 } // End doSearch Function
 
+function doHome(){
+  doShow("MainMenu");
+}
+
 // Begind doShow function show a contact from the search function
 // Select which screen is shown.
 function doShow(pageName){
   if(pageName == "Add"){
     hideOrShow("buttons", false, true);
     hideOrShow("contactInfo", true, true);
-    hideOrShow("addUserButton", true, false);
-    hideOrShow("homeButton", true, false);
+    hideOrShow("buttonBreak")
+    hideOrShow("addUserButton");
+    hideOrShow("homeButton");
+    document.getElementById("pageName").innerHTML = "Add User";
   }
   else if(pageName == "MainMenu"){
     hideOrShow("sign-in", false, true);
     hideOrShow("buttons", false, true);
     hideOrShow("searchField", false, true);
     hideOrShow("contactInfo", false, true);
-    hideOrShow("addButton", true, false);
-    hideOrShow("searchButton", true, false);
-    hideOrShow("logoutButton", true, false);
+    hideOrShow("buttonBreak", false);
+    hideOrShow("addButton");
+    hideOrShow("searchButton");
+    hideOrShow("logoutButton");
+    document.getElementById("pageName").innerHTML = "Main Menu";
   }
   else if(pageName == "Register"){
-    hideOrShow("fName", true, false);
-    hideOrShow("lName", true, false);
-    hideOrShow("userName", true, false);
-    hideOrShow("passWord", true, false);
+    hideOrShow("buttons", false, true);
+    hideOrShow("sign-in", true, true);
+    hideOrShow("register", true, true);
+    hideOrShow("buttonBreak")
+    hideOrShow("logoutButton");
+    document.getElementById("pageName").innerHTML = "Register";
   }
   else if(pageName == "Search"){
     hideOrShow("buttons", false, true);
     hideOrShow("searchField", true, true);
-    hideOrShow("homeButton", true, false);
-    hideOrShow("viewButton", true, false);
+    hideOrShow("buttonBreak")
+    hideOrShow("homeButton");
+    hideOrShow("viewButton");
+    document.getElementById("pageName").innerHTML = "Search Contacts";
   }
   else if(pageName == "View"){
     hideOrShow("buttons", false, true);
     hideOrShow("searchField", false, true);
     hideOrShow("contactInfo", true, true);
-    hideOrShow("homeButton", true, false);
+    hideOrShow("buttonBreak")
+    hideOrShow("homeButton");
+    document.getElementById("pageName").innerHTML = "Contact Info";
   }
   else if(pageName == "Login"){
     hideOrShow("buttons", false, true);
-    hideOrShow("loginButton", true, false);
-    hideOrShow("registerButton", true, false);
+    hideOrShow("sign-in", true, true);
+    hideOrShow("register", false, true);
+    hideOrShow("buttonBreak")
+    hideOrShow("loginButton");
+    hideOrShow("registerButton");
+    document.getElementById("pageName").innerHTML = "Database Title";
   }
 } // End doShow function
 
@@ -271,8 +297,8 @@ function sha1(msg)
 {
   function rotl(n,s) { return n<<s|n>>>32-s; };
   function tohex(i) { for(var h="", s=28;;s-=4) { h+=(i>>>s&0xf).toString(16); if(!s) return h; } };
-  
-  var H0=0x67452301, H1=0xEFCDAB89, H2=0x98BADCFE, H3=0x10325476, H4=0xC3D2E1F0, M=0x0ffffffff; 
+
+  var H0=0x67452301, H1=0xEFCDAB89, H2=0x98BADCFE, H3=0x10325476, H4=0xC3D2E1F0, M=0x0ffffffff;
   var i, t, W=new Array(80), ml=msg.length, wa=new Array();
   msg += String.fromCharCode(0x80);
   while(msg.length%4) msg+=String.fromCharCode(0);
@@ -291,3 +317,8 @@ function sha1(msg)
   }
   return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 } // End sha1 function
+
+function doSecret(){
+  document.body.style.backgroundImage ="url('images/easteregg.png')";
+  document.getElementsByClassName("middle")[0].style.backgroundColor = "pink";
+}

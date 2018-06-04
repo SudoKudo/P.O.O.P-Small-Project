@@ -1,16 +1,16 @@
 <?php
 
 	$inData = getRequestInfo();
-	
+
 	$id = 0;
 	$userName = "";
 	$password = "";
 
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
-	if ($conn->connect_error) 
+	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}
 	else
 	{
 		$sql = "SELECT UserID,UserName,Password FROM UserInfo where UserName='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
@@ -28,7 +28,7 @@
 		}
 		$conn->close();
 	}
-	
+
 	returnWithInfo($userName, $password, $id );
 
 	function getRequestInfo()
@@ -41,17 +41,17 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
 		$retValue = '{"UserID":0,"UserName":"","Password":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 	function returnWithInfo( $username, $password, $id )
 	{
 		$retValue = '{"UserID":' . $id . ',"UserName":"' . $username . '","Password":"' . $password . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>

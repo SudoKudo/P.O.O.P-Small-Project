@@ -54,8 +54,10 @@ function doLogin()
 	var url = urlBase + '/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
+        
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
 	try
 	{
 		xhr.send(jsonPayload);
@@ -64,30 +66,21 @@ function doLogin()
 
 		userId = jsonObject.UserID;
 
-		console.log(userId);
-
 		if( userId < 1 )
 		{
-			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+			document.getElementById("loginResult").innerHTML = "Inncorrect Username/Password";
 			return;
 		}
 
 		login = jsonObject.UserName;
 		password = jsonObject.Password;
 
-		/*
-		document.getElementById("userName").innerHTML = firstName + " " + lastName;
-
-		document.getElementById("loginName").value = "";
-		document.getElementById("loginPassword").value = "";
-		*/
-
 		// Call hideOrShow Function
 		doShow("MainMenu");
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("loginResult").innerHTML = "Incorrect Username/Password";
 	}
 
 } // End of the doLogin function
@@ -240,7 +233,6 @@ function doHome(){
 
 // Begind doShow function show a contact from the search function
 // Select which screen is shown.
-// Select which screen is shown.
 function doShow(pageName){
   if(pageName == "Add"){
     hideOrShow("buttons", false, true);
@@ -292,7 +284,7 @@ function doShow(pageName){
     hideOrShow("buttonBreak")
     hideOrShow("loginButton");
     hideOrShow("registerButton");
-    document.getElementById("pageName").innerHTML = "Database Title";
+    document.getElementById("pageName").innerHTML = "Contact Manager";
   }
 } // End doShow function
 

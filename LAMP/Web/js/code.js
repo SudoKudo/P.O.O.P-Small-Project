@@ -85,6 +85,57 @@ function doLogin()
 
 } // End of the doLogin function
 
+// View function
+function doView()
+{
+
+	var firstName = document.getElementById("").value; // Takes in firstName from UI
+	var lastName = document.getElementById("").value; // Takes in lastName from UI
+
+	//document.getElementById("").innerHTML = "";
+
+	var jsonPayload = '{"UserId" : "' + login + '", "FirstName" : "' + firstName + '", "LastName" : "' + lastName + '"}';
+	var url = urlBase + '/View.' + extension;
+
+	var xhr = new XMLHttpRequest();
+        
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try
+	{
+		xhr.send(jsonPayload);
+
+		var jsonObject = JSON.parse( xhr.responseText );
+
+                //Get contact information from jsonObject
+		var resultsCheck = jsonObject.UserID;
+                var FirstName = jsonObject.FirstName;
+                var LastName = jsonOjbect.LastName;
+                var Address1 = jsonObject.Address1;
+                var Address2 = jsonObject.Address2;
+                var City = jsonObject.City;
+                var State = jsonObject.State;
+                var Zip = jsonObject.Zip;
+                var PhoneNumber = jsonObject.PhoneNumber;
+                var Email = jsonObject.Email;
+
+		if( resultsCheck == 0 )
+		{
+			document.getElementById("").innerHTML = "No results";
+			return;
+		}
+                
+		//Add information to UI
+		
+	}
+	catch(err)
+	{
+		document.getElementById("").innerHTML = "An error occured";
+	}
+
+} // End of the View function
+
 // Begin doLogout function
 function doLogout()
 {

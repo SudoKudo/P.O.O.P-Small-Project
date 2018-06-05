@@ -94,7 +94,7 @@ function doView()
 
 	//document.getElementById("").innerHTML = "";
 
-	var jsonPayload = '{"UserId" : "' + login + '", "FirstName" : "' + firstName + '", "LastName" : "' + lastName + '"}';
+	var jsonPayload = '{"UserId" : "' + userId + '", "FirstName" : "' + firstName + '", "LastName" : "' + lastName + '"}';
 	var url = urlBase + '/View.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -111,7 +111,7 @@ function doView()
                 //Get contact information from jsonObject
 		var resultsCheck = jsonObject.UserID;
                 var FirstName = jsonObject.FirstName;
-                var LastName = jsonOjbect.LastName;
+                var LastName = jsonObject.LastName;
                 var Address1 = jsonObject.Address1;
                 var Address2 = jsonObject.Address2;
                 var City = jsonObject.City;

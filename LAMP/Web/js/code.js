@@ -6,113 +6,113 @@ var userId = 0;
 function doRegister()
 {
 
-	var uName = document.getElementById("userName").value; // Retrieve username
-	var pWord = document.getElementById("passWord").value; // Retrieve password
+  var uName = document.getElementById("userName").value; // Retrieve username
+  var pWord = document.getElementById("passWord").value; // Retrieve password
 
-	var hashpass = sha1(pWord); // Encrypt the password
-	document.getElementById("loginResult").innerHTML = "";
+  var hashpass = sha1(pWord); // Encrypt the password
 
-	// Convert to json string to pass to API
-	var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : "' + userId + '"}';
-	var url = urlBase + '/Register.' + extension; // Call API code
+  // Convert to json string to pass to API
+  var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : "' + userId + '"}';
+  var url = urlBase + '/Register.' + extension; // Call API code
 
-	console.log(url);
+  console.log(url);
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("loginResult").innerHTML = "Welcome to the Git Life!";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("loginResult").innerHTML = err.message;
-	}
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  try
+  {
+    xhr.onreadystatechange = function()
+    {
+      if (this.readyState == 4 && this.status == 200)
+      {
+        document.getElementById("loginResult").innerHTML = "User has been added!";
+      }
+    };
+    xhr.send(jsonPayload);
+  }
+  catch(err)
+  {
+    document.getElementById("loginResult").innerHTML = "Unable to add user";
+  }
 
 
 }
 // Login function in the main screen
 function doLogin()
 {
-	userId = 0;
+  userId = 0;
 
-	var login = document.getElementById("userName").value; // Takes in username from login
-	var password = document.getElementById("passWord").value; // Takes in password
+  var login = document.getElementById("userName").value; // Takes in username from login
+  var password = document.getElementById("passWord").value; // Takes in password
 
-	var hashpass = sha1(password); // Encrypt the password
+  var hashpass = sha1(password); // Encrypt the password
 
-	document.getElementById("loginResult").innerHTML = "";
+  document.getElementById("loginResult").innerHTML = "";
 
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hashpass + '"}';
-	var url = urlBase + '/Login.' + extension;
+  var jsonPayload = '{"login" : "' + login + '", "password" : "' + hashpass + '"}';
+  var url = urlBase + '/Login.' + extension;
 
-	var xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
         
-	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  xhr.open("POST", url, false);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	try
-	{
-		xhr.send(jsonPayload);
+  try
+  {
+    xhr.send(jsonPayload);
 
-		var jsonObject = JSON.parse( xhr.responseText );
+    var jsonObject = JSON.parse( xhr.responseText );
 
-		userId = jsonObject.UserID;
+    userId = jsonObject.UserID;
 
-		if( userId < 1 )
-		{
-			document.getElementById("loginResult").innerHTML = "Incorrect Username/Password";
-			return;
-		}
+    if( userId < 1 )
+    {
+      document.getElementById("loginResult").innerHTML = "Inncorrect Username/Password";
+      return;
+    }
 
-		login = jsonObject.UserName;
-		password = jsonObject.Password;
+    login = jsonObject.UserName;
+    password = jsonObject.Password;
 
-		// Call hideOrShow Function
-		doShow("MainMenu");
-	}
-	catch(err)
-	{
-		document.getElementById("loginResult").innerHTML = "Incorrect Username/Password";
-	}
+    // Call hideOrShow Function
+    doShow("MainMenu");
+  }
+  catch(err)
+  {
+    document.getElementById("loginResult").innerHTML = "Incorrect Username/Password";
+  }
 
 } // End of the doLogin function
 
 // View function
 function doView()
 {
-
-	var firstName = document.getElementById("").value; // Takes in firstName from UI
-	var lastName = document.getElementById("").value; // Takes in lastName from UI
-
-	//document.getElementById("").innerHTML = "";
-
-	var jsonPayload = '{"UserId" : "' + userId + '", "FirstName" : "' + firstName + '", "LastName" : "' + lastName + '"}';
-	var url = urlBase + '/View.' + extension;
-
-	var xhr = new XMLHttpRequest();
         
-	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        //Get first and last name of contact to view
+  var firstName = document.getElementById("").value; // Takes in firstName from UI
+  var lastName = document.getElementById("").value; // Takes in lastName from UI
 
-	try
-	{
-		xhr.send(jsonPayload);
+  //document.getElementById("").innerHTML = "";
 
-		var jsonObject = JSON.parse( xhr.responseText );
+  var jsonPayload = '{"UserId" : "' + userId + '", "FirstName" : "' + firstName + '", "LastName" : "' + lastName + '"}';
+  var url = urlBase + '/View.' + extension;
+
+  var xhr = new XMLHttpRequest();
+        
+  xhr.open("POST", url, false);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+  {
+    xhr.send(jsonPayload);
+
+    var jsonObject = JSON.parse( xhr.responseText );
 
                 //Get contact information from jsonObject
-		var resultsCheck = jsonObject.UserID;
+    var resultsCheck = jsonObject.UserID;
                 var FirstName = jsonObject.FirstName;
-                var LastName = jsonObject.LastName;
+                var LastName = jsonOjbect.LastName;
                 var Address1 = jsonObject.Address1;
                 var Address2 = jsonObject.Address2;
                 var City = jsonObject.City;
@@ -121,47 +121,47 @@ function doView()
                 var PhoneNumber = jsonObject.PhoneNumber;
                 var Email = jsonObject.Email;
 
-		if( resultsCheck == 0 )
-		{
-			document.getElementById("").innerHTML = "No results";
-			return;
-		}
+    if( resultsCheck == 0 )
+    {
+      document.getElementById("").innerHTML = "No results";
+      return;
+    }
                 
-		//Add information to UI
-		
-	}
-	catch(err)
-	{
-		document.getElementById("").innerHTML = "An error occured";
-	}
+    //Add information to UI
+    
+  }
+  catch(err)
+  {
+    document.getElementById("").innerHTML = "An error occured";
+  }
 
 } // End of the View function
 
 // Begin doLogout function
 function doLogout()
 {
-	userId = 0;
-	userName = "";
-	passWord = "";
+  userId = 0;
+  userName = "";
+  passWord = "";
 
-	document.getElementById("userName").value = userName;
-	document.getElementById("passWord").value = passWord;
+  document.getElementById("userName").value = userName;
+  document.getElementById("passWord").value = passWord;
 
-	doShow("Login");
+  doShow("Login");
 } // End doLogout function
 
-// Select which elemen(s) are shown or hidden.
+// Select which element(s) are shown or hidden.
 // hidden elements still remain on the page and can be targeted by other
 // functions.
 function hideOrShow(element, show=true, list=false){
   // Default is to show the element(s)
   var vis = "visible";
-	var dis = "block";
+  var dis = "block";
 
   // To hide the element(s)
   if(!show){
     var vis = "hidden";
-  	var dis = "none";
+    var dis = "none";
   }
 
   // The element is a class, so there will be a list of elements
@@ -190,41 +190,80 @@ function doAdd()
 
 function doAddUser()
 {
-	var fName = document.getElementById("fName").value; // Retrieve first name
-	var lName = document.getElementById("lName").value; // Retrieve last name
-	var addrOne = document.getElementById("addr1").value; // Retrieve first line of address
-	var addrTwo = document.getElementById("addr2").value; // Retrieve second line of address
-	var city = document.getElementById("city").value; // Retrieve city
-	var state = document.getElementById("state").value; // Retrieve state
-	var zip = document.getElementById("zip").value; // Retrieve zip code
-	var phone = document.getElementById("phone").value; // Retrieve phone number
-	var email = document.getElementById("email").value; // Retrieve email address
-	//document.getElementById("colorAddResult").innerHTML = "";
+  var fName = document.getElementById("fName").value; // Retrieve first name
+  var lName = document.getElementById("lName").value; // Retrieve last name
+  var addrOne = document.getElementById("addr1").value; // Retrieve first line of address
+  var addrTwo = document.getElementById("addr2").value; // Retrieve second line of address
+  var city = document.getElementById("city").value; // Retrieve city
+  var state = document.getElementById("state").value; // Retrieve state
+  var zip = document.getElementById("zip").value; // Retrieve zip code
+  var phone = document.getElementById("phone").value; // Retrieve phone number
+  var email = document.getElementById("email").value; // Retrieve email address
+        
+        //Validate Input
+        var invalidInput = "";
+        if(zip.replace(/\s/g, '').length)
+        {
+                if((/^\d+$/.test(zip)) == false)
+                {
+                        invalidInput = "Invalid zip";
+                        console.log("Invalid zip");
+                }
+        }
+        if(!lName.replace(/\s/g, '').length)
+        {
+                invalidInput = "Invalid Last Name";
+                console.log("Invalid first name");
+        }
+        if(!fName.replace(/\s/g, '').length)
+        {
+                invalidInput = "Invalid First Name";
+                console.log("Invalid last name");
+        }
+        
+        
+  document.getElementById("loginResult").innerHTML = invalidInput;
+        
+        if(invalidInput == "")
+        {
+                // Convert to json string to pass to API
+                var jsonPayload = '{"fName" : "' + fName + '","lName" : "' + lName + '","addrOne" : "' + addrOne + '","addrTwo" : "' + addrTwo + '","city" : "' + city + '","state" : "' + state + '","zip" : "' + zip + '","phone" : "' + phone + '","email" : "' + email + '","userId" : "' + userId + '"}';
+                var url = urlBase + '/Add.' + extension; // Call API code
 
-	// Convert to json string to pass to API
-        var jsonPayload = '{"fName" : "' + fName + '","lName" : "' + lName + '","addrOne" : "' + addrOne + '","addrTwo" : "' + addrTwo + '","city" : "' + city + '","state" : "' + state + '","zip" : "' + zip + '","phone" : "' + phone + '","email" : "' + email + '","userId" : "' + userId + '"}';
-        var url = urlBase + '/Add.' + extension; // Call API code
+                console.log(jsonPayload);
 
-	console.log(jsonPayload);
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				//document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		//document.getElementById("colorAddResult").innerHTML = err.message;
-	}
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+                try
+                {
+                        xhr.onreadystatechange = function()
+                        {
+                                if (this.readyState == 4 && this.status == 200)
+                                {
+                                        document.getElementById("loginResult").innerHTML = "Contact has been added!";
+                                        
+                                        //Clear form after contact was successfully added
+                                          document.getElementById("fName").value = "";
+                                          document.getElementById("lName").value = "";
+                                          document.getElementById("addr1").value = "";
+                                          document.getElementById("addr2").value = "";
+                                          document.getElementById("city").value = "";
+                                          document.getElementById("state").value = "";
+                                          document.getElementById("zip").value = "";
+                                          document.getElementById("phone").value = "";
+                                          document.getElementById("email").value = "";
+                                }
+                        };
+                        xhr.send(jsonPayload);
+                }
+                catch(err)
+                {
+                        document.getElementById("loginResult").innerHTML = err.message;
+                }
+                
+        }//End of invalidInput if statement
+        
 } // End doAdd function
 
 // Begin doDelete function to delete a contact in the contact manager
@@ -236,50 +275,51 @@ function doDelete()
 // Begin doSearch function to search for a contact in the database
 function doSearch()
 {
-	var srch = document.getElementById("searchName").value;
-	//document.getElementById("colorSearchResult").innerHTML = "";
+  var srch = document.getElementById("searchName").value;
+  //document.getElementById("loginResult").innerHTML = "";
 
-	var nameList = document.getElementById("nameList");
-	//nameList.innerHTML = "";
+  var nameList = document.getElementById("nameList");
+  //nameList.innerHTML = "";
 
-	var jsonPayload = '{"search" : "' + srch + '"}';
-	var url = urlBase + '/Search.' + extension;
+  var jsonPayload = '{"search" : "' + srch + '"}';
+  var url = urlBase + '/Search.' + extension;
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				hideOrShow( "colorList", true );
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  try
+  {
+    xhr.onreadystatechange = function()
+    {
+      if (this.readyState == 4 && this.status == 200)
+      {
+        hideOrShow( "colorList", true );
 
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
+        document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+        var jsonObject = JSON.parse( xhr.responseText );
 
-				var i;
-				for( i=0; i<jsonObject.results.length; i++ )
-				{
-					var opt = document.createElement("option");
-					opt.text = jsonObject.results[i];
-					opt.value = "";
-					colorList.options.add(opt);
-				}
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
+        var i;
+        for( i=0; i<jsonObject.results.length; i++ )
+        {
+          var opt = document.createElement("option");
+          opt.text = jsonObject.results[i];
+          opt.value = "";
+          colorList.options.add(opt);
+        }
+      }
+    };
+    xhr.send(jsonPayload);
+  }
+  catch(err)
+  {
+    //document.getElementById("loginResult").innerHTML = err.message;
+  }
 
 } // End doSearch Function
 
 // Returns to Main Menu from any view while logged in.
 function doHome(){
+  document.getElementById("loginResult").innerHTML = "";
   doShow("MainMenu");
 }
 
@@ -292,7 +332,7 @@ function doShow(pageName){
     hideOrShow("buttonBreak")
     hideOrShow("addUserButton");
     hideOrShow("homeButton");
-    document.getElementById("pageName").innerHTML = "Add User";
+    document.getElementById("pageName").innerHTML = "Add Contact";
   }
   else if(pageName == "MainMenu"){
     hideOrShow("sign-in", false, true);

@@ -54,7 +54,7 @@ function doLogin()
   var url = urlBase + '/Login.' + extension;
 
   var xhr = new XMLHttpRequest();
-        
+
   xhr.open("POST", url, false);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -88,7 +88,7 @@ function doLogin()
 // View function
 function doView()
 {
-        
+
         //Get first and last name of contact to view
   var firstName = document.getElementById("").value; // Takes in firstName from UI
   var lastName = document.getElementById("").value; // Takes in lastName from UI
@@ -99,7 +99,7 @@ function doView()
   var url = urlBase + '/View.' + extension;
 
   var xhr = new XMLHttpRequest();
-        
+
   xhr.open("POST", url, false);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -126,9 +126,9 @@ function doView()
       document.getElementById("").innerHTML = "No results";
       return;
     }
-                
+
     //Add information to UI
-    
+
   }
   catch(err)
   {
@@ -199,7 +199,7 @@ function doAddUser()
   var zip = document.getElementById("zip").value; // Retrieve zip code
   var phone = document.getElementById("phone").value; // Retrieve phone number
   var email = document.getElementById("email").value; // Retrieve email address
-        
+
         //Validate Input
         var invalidInput = "";
         if(zip.replace(/\s/g, '').length)
@@ -220,10 +220,10 @@ function doAddUser()
                 invalidInput = "Invalid First Name";
                 console.log("Invalid last name");
         }
-        
-        
+
+
   document.getElementById("loginResult").innerHTML = invalidInput;
-        
+
         if(invalidInput == "")
         {
                 // Convert to json string to pass to API
@@ -242,7 +242,7 @@ function doAddUser()
                                 if (this.readyState == 4 && this.status == 200)
                                 {
                                         document.getElementById("loginResult").innerHTML = "Contact has been added!";
-                                        
+
                                         //Clear form after contact was successfully added
                                           document.getElementById("fName").value = "";
                                           document.getElementById("lName").value = "";
@@ -261,9 +261,9 @@ function doAddUser()
                 {
                         document.getElementById("loginResult").innerHTML = err.message;
                 }
-                
+
         }//End of invalidInput if statement
-        
+
 } // End doAdd function
 
 // Begin doDelete function to delete a contact in the contact manager
@@ -271,6 +271,11 @@ function doDelete()
 {
 
 } // End doDelete function
+
+// Shows the search page
+function showSearch(){
+  doShow("Search");
+}
 
 // Begin doSearch function to search for a contact in the database
 function doSearch()
@@ -332,7 +337,7 @@ function doShow(pageName){
     hideOrShow("buttonBreak")
     hideOrShow("addUserButton");
     hideOrShow("homeButton");
-    document.getElementById("pageName").innerHTML = "Add Contact";
+    document.getElementById("pageName").innerHTML = "Add User";
   }
   else if(pageName == "MainMenu"){
     hideOrShow("sign-in", false, true);
@@ -359,6 +364,7 @@ function doShow(pageName){
     hideOrShow("buttonBreak")
     hideOrShow("homeButton");
     hideOrShow("viewButton");
+    hideOrShow("doSearchButton");
     document.getElementById("pageName").innerHTML = "Search Contacts";
   }
   else if(pageName == "View"){

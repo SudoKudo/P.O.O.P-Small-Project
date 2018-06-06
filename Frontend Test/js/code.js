@@ -71,6 +71,9 @@ function doAddUser(){
 }
 
 function doView(){
+  var selectBox = document.getElementById("nameList");
+  var name = selectBox.options[selectBox.selectedIndex].text;
+  console.log(name);
   doShow("View");
 }
 

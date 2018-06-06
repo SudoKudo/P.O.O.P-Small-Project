@@ -133,8 +133,8 @@ select{
 #addButton,
 #searchButton,
 #logoutButton{
-  font-size: 25px;
-  width: 150px;
+  font-size: 20px;
+  width: 180px;
 }
 
 @media (max-width: 600px) {

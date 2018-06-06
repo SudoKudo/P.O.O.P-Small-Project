@@ -10,7 +10,7 @@ function doRegister()
 	var pWord = document.getElementById("passWord").value; // Retrieve password
 
 	var hashpass = sha1(pWord); // Encrypt the password
-	document.getElementById("registrationResult").innerHTML = "";
+	document.getElementById("loginResult").innerHTML = "";
 
 	// Convert to json string to pass to API
 	var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : "' + userId + '"}';
@@ -27,14 +27,14 @@ function doRegister()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("registrationResult").innerHTML = "Welcome to the Git Life!";
+				document.getElementById("loginResult").innerHTML = "Welcome to the Git Life!";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("registrationResult").innerHTML = err.message;
+		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
 
@@ -69,7 +69,7 @@ function doLogin()
 
 		if( userId < 1 )
 		{
-			document.getElementById("loginResult").innerHTML = "Inncorrect Username/Password";
+			document.getElementById("loginResult").innerHTML = "Incorrect Username/Password";
 			return;
 		}
 

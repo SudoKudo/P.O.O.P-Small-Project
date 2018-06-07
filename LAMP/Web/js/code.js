@@ -87,15 +87,28 @@ function doLogin()
 
 // View function
 function doView()
-{
+{  
 
-        //Get first and last name of contact to view
-  var firstName = document.getElementById("").value; // Takes in firstName from UI
-  var lastName = document.getElementById("").value; // Takes in lastName from UI
-
-  //document.getElementById("").innerHTML = "";
+   var dropdown;
+   var selected;
+   var firstName = "";
+   var lastName = "";
+   
+   try
+   {
+   //Get first and last name
+   var dropdown = document.getElementById("nameList");
+   var selected = dropdown.options [dropdown.selectedIndex].text;
+   
+   
+   var nameArr = selected.split(' ');
+   var firstName = nameArr[0];
+   var lastName = nameArr[1];
+   }
+   catch(err){}
 
   var jsonPayload = '{"UserId" : "' + userId + '", "FirstName" : "' + firstName + '", "LastName" : "' + lastName + '"}';
+
   var url = urlBase + '/View.' + extension;
 
   var xhr = new XMLHttpRequest();
@@ -106,33 +119,49 @@ function doView()
   try
   {
     xhr.send(jsonPayload);
+    
+    console.log(xhr.responseText);
 
     var jsonObject = JSON.parse( xhr.responseText );
 
-                //Get contact information from jsonObject
+    //Get contact information from jsonObject
     var resultsCheck = jsonObject.UserID;
-                var FirstName = jsonObject.FirstName;
-                var LastName = jsonOjbect.LastName;
-                var Address1 = jsonObject.Address1;
-                var Address2 = jsonObject.Address2;
-                var City = jsonObject.City;
-                var State = jsonObject.State;
-                var Zip = jsonObject.Zip;
-                var PhoneNumber = jsonObject.PhoneNumber;
-                var Email = jsonObject.Email;
+    var FirstName = jsonObject.FirstName;
+    var LastName = jsonObject.LastName;
+    var Address1 = jsonObject.Address1;
+    var Address2 = jsonObject.Address2;
+    var City = jsonObject.City;
+    var State = jsonObject.State;
+    var Zip = jsonObject.Zip;
+    var PhoneNumber = jsonObject.PhoneNumber;
+    var Email = jsonObject.Email;
 
     if( resultsCheck == 0 )
     {
-      document.getElementById("").innerHTML = "No results";
+      document.getElementById("loginResult").innerHTML = "No results";
       return;
     }
-
-    //Add information to UI
+    else
+    {
+      //Add information to UI
+      document.getElementById("fName").value = FirstName;
+      document.getElementById("lName").value = LastName;
+      document.getElementById("addr1").value = Address1;
+      document.getElementById("addr2").value = Address2;
+      document.getElementById("city").value = City;
+      document.getElementById("state").value = State;
+      document.getElementById("zip").value = Zip;
+      document.getElementById("phone").value = PhoneNumber;
+      document.getElementById("email").value = Email;
+      
+      doShow("View");
+      
+    }
 
   }
   catch(err)
   {
-    document.getElementById("").innerHTML = "An error occured";
+    document.getElementById("loginResult").innerHTML = "No selection";
   }
 
 } // End of the View function
@@ -185,6 +214,15 @@ function hideOrShow(element, show=true, list=false){
 
 function doAdd()
 {
+    document.getElementById("fName").value = "";
+    document.getElementById("lName").value = "";
+    document.getElementById("addr1").value = "";
+    document.getElementById("addr2").value = "";
+    document.getElementById("city").value = "";
+    document.getElementById("state").value = "";
+    document.getElementById("zip").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
     doShow("Add");
 }
 
@@ -273,20 +311,39 @@ function doDelete()
 } // End doDelete function
 
 // Shows the search page
-function showSearch(){
+function showSearch()
+{
+  //Make sure form is clear
+  document.getElementById("searchName").value = ""; 
+  
+  var nameList = document.getElementById("nameList");
+  
+  //Clear all items from drop down
+  while (nameList.options.length > 0) 
+  {                
+        nameList.remove(0);
+  }
   doShow("Search");
 }
 
 // Begin doSearch function to search for a contact in the database
 function doSearch()
 {
+
   var srch = document.getElementById("searchName").value;
   //document.getElementById("loginResult").innerHTML = "";
 
   var nameList = document.getElementById("nameList");
   //nameList.innerHTML = "";
 
-  var jsonPayload = '{"search" : "' + srch + '"}';
+  //Clear all items from drop down
+  while (nameList.options.length > 0) 
+  {                
+        nameList.remove(0);
+  }
+
+  var jsonPayload = '{"search" : "' + srch + '", "UserID" : "' + userId + '"}';
+  console.log(jsonPayload);
   var url = urlBase + '/Search.' + extension;
 
   var xhr = new XMLHttpRequest();
@@ -298,19 +355,27 @@ function doSearch()
     {
       if (this.readyState == 4 && this.status == 200)
       {
-        hideOrShow( "colorList", true );
-
-        document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-        var jsonObject = JSON.parse( xhr.responseText );
-
-        var i;
-        for( i=0; i<jsonObject.results.length; i++ )
+        
+        try
         {
-          var opt = document.createElement("option");
-          opt.text = jsonObject.results[i];
-          opt.value = "";
-          colorList.options.add(opt);
+              var jsonObject = JSON.parse( xhr.responseText );
+              
+              var i;
+              for( i=0; i<jsonObject.results.length; i++ )
+              {
+                  var opt = document.createElement("option");
+                  opt.text = jsonObject.results[i];
+                  opt.value = "";
+                  nameList.options.add(opt);
+              }
+              
+              document.getElementById("loginResult").innerHTML = "Contact(s) retrieved"; 
         }
+        catch(err)
+        {
+              document.getElementById("loginResult").innerHTML = "No results";
+        }
+     
       }
     };
     xhr.send(jsonPayload);

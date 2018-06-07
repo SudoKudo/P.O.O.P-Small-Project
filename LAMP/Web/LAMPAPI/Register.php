@@ -1,8 +1,9 @@
 <?php
 	$inData = getRequestInfo();
-	
-	$userName = $inData["uName"];
-	$password = $inData["pWord"];
+        
+        $userName = $inData["uName"];
+        $password = $inData["pWord"];
+
 
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
 	
@@ -12,15 +13,18 @@
 	} 
 	else
 	{
-		$sql = "INSERT INTO UserInfo (UserName,Password) VALUES ('" . $userName . "','" . $password . "')";
-                $conn->query($sql);
-                $result = $conn->query($sql);
+        //User prepare statement to protect against sql injection attacks
+		$stmt = $conn->prepare("INSERT INTO UserInfo (UserName,Password) VALUES (?, ?)");
+        $stmt->bind_param("ss", $userName, $password);
+                
+        $stmt->execute();
+                
+        $result = $stmt->get_result();
                
 		if( $result != TRUE )
 		{
 			returnWithError( $conn->error );
 		}
-
 		$conn->close();
 	}
 	
@@ -30,7 +34,6 @@
 	{
 		return json_decode(file_get_contents('php://input'), true);
 	}
-
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-Type: application/json');

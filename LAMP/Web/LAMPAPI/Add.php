@@ -21,8 +21,14 @@
 	}
 	else
 	{
-		$sql = "INSERT INTO Contact (FirstName,LastName,Address1,Address2,City,State,Zip,PhoneNumber,Email,UserID) VALUES ('" . $fName . "','" . $lName . "','" . $addrOne . "','" . $addrTwo . "','" . $city . "','" . $state . "','" . $zip . "','" . $phone . "','" . $email . "','" . $userId . "')";
-                $result = $conn->query($sql);
+                //Use prepare statement to protect against sql injection attacks
+		$stmt = $conn->prepare("INSERT INTO Contact (FirstName,LastName,Address1,Address2,City,State,Zip,PhoneNumber,Email,UserID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("ssssssissi", $fName, $lName, $addrOne, $addrTwo, $city, $state, $zip, $phone, $email, $userId);
+                
+                $stmt->execute();
+                
+                $result = $stmt->get_result();
+                
 		if( $result != TRUE )
 		{
 			returnWithError( $conn->error );

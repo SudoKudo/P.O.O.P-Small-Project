@@ -9,34 +9,50 @@ function doRegister()
   var uName = document.getElementById("userName").value; // Retrieve username
   var pWord = document.getElementById("passWord").value; // Retrieve password
 
-  var hashpass = sha1(pWord); // Encrypt the password
-
-  // Convert to json string to pass to API
-  var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : "' + userId + '"}';
-  var url = urlBase + '/Register.' + extension; // Call API code
-
-  console.log(url);
-
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-  try
-  {
-    xhr.onreadystatechange = function()
+  var invalidInput = "";
+  
+    if(!pWord.replace(/\s/g, '').length)
     {
-      if (this.readyState == 4 && this.status == 200)
-      {
-        document.getElementById("loginResult").innerHTML = "User has been added!";
-      }
-    };
-    xhr.send(jsonPayload);
-  }
-  catch(err)
+           invalidInput = "Invalid Password";
+           console.log("Invalid Password");
+    }
+    if(!uName.replace(/\s/g, '').length)
+    {
+           invalidInput = "Invalid Username";
+           console.log("Invalid Username");
+    }  
+    
+    document.getElementById("loginResult").innerHTML = invalidInput;
+  
+  if(invalidInput == "")
   {
-    document.getElementById("loginResult").innerHTML = "Unable to add user";
+          var hashpass = sha1(pWord); // Encrypt the password
+
+          // Convert to json string to pass to API
+          var jsonPayload = '{"uName" : "' + uName + '","pWord" : "' + hashpass + '", "userId" : "' + userId + '"}';
+          var url = urlBase + '/Register.' + extension; // Call API code
+
+          console.log(jsonPayload);
+
+          var xhr = new XMLHttpRequest();
+                  xhr.open("POST", url, true);
+          xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+          try
+          {
+            xhr.onreadystatechange = function()
+            {
+              if (this.readyState == 4 && this.status == 200)
+              {
+                document.getElementById("loginResult").innerHTML = "User has been added!";
+              }
+            };
+            xhr.send(jsonPayload);
+          }
+          catch(err)
+          {
+            document.getElementById("loginResult").innerHTML = "Unable to add user";
+          }
   }
-
-
 }
 // Login function in the main screen
 function doLogin()

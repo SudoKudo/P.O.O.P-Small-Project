@@ -1,3 +1,7 @@
+GROUP 13 Small Project:
+
+Submission Details:
+
 The presentations will be 7 minutes. Immediately in advance of your presentation you DO NOT have time to go the google drive, drop box, or the like and retrieve your material. 
 You should have your slides and support material on a USB stick. All members must participate in the presentation.
 

@@ -6,25 +6,32 @@
 
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
 
-    if ($conn->connect_error)
+        if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{
-		$sql = "select FirstName from Contact where FirstName like '%" . $inData["searchName"] . "%'";
-		$result = $conn->query($sql);
+		$sql = "SELECT FirstName,LastName from Contact WHERE FirstName LIKE '%" . $inData["search"] . "%' and UserID='" . $inData["UserID"] . "'";
+
+                $result = $conn->query($sql);
+  
 		if ($result->num_rows > 0)
 		{
+
+
 			while($row = $result->fetch_assoc())
 			{
-				if( $searchCount > 0 )
-				{
-					$searchResults .= ",";
-				}
-				$searchCount++;
-				$searchResults .= '"' . $row["FirstName"] . '"';
-			}
+   
+                              if( $searchCount > 0 )
+                              {
+                                   $searchResults .= ",";
+                              }
+                              
+                              $searchCount++;
+                              $searchResults .= '"' . $row["FirstName"] . ' ' . $row["LastName"] . '"';
+                        }
+	            
 		}
 		else
 		{
